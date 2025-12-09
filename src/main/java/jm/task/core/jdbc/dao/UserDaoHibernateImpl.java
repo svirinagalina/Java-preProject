@@ -17,12 +17,10 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        // В учебной задаче обычно пусто — таблицу создаёт Hibernate по hibernate.cfg.xml
     }
 
     @Override
     public void dropUsersTable() {
-        // Аналогично, часто оставляют пустым
     }
 
     @Override
