@@ -6,24 +6,47 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
 
     private final SessionFactory factory = Util.getSessionFactory();
 
-    public UserDaoHibernateImpl() {
-    }
-
     @Override
     public void createUsersTable() {
-        // В учебной задаче обычно пусто — таблицу создаёт Hibernate по hibernate.cfg.xml
+        Transaction tx = null;
+        String sql = "CREATE TABLE IF NOT EXISTS users (" +
+                "id BIGINT NOT NULL AUTO_INCREMENT, " +
+                "name VARCHAR(50), " +
+                "lastName VARCHAR(50), " +
+                "age TINYINT, " +
+                "PRIMARY KEY (id)" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+            session.createNativeQuery(sql).executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void dropUsersTable() {
-        // Аналогично, часто оставляют пустым
+        Transaction tx = null;
+        String sql = "DROP TABLE IF EXISTS users;";
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+            session.createNativeQuery(sql).executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
@@ -35,7 +58,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(user);
 
             transaction.commit();
-            System.out.printf("User с именем – %s добавлен в базу данных%n", name);
+
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

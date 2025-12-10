@@ -65,7 +65,7 @@ public class UserDaoJDBCImpl implements UserDao {
             pstmt.setLong(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+          throw new RuntimeException(e);
         }
 
     }
