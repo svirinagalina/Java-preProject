@@ -1,9 +1,20 @@
-# Default ignored files
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Maven build output
+/target/
+
+# macOS system files
+.DS_Store
+
+# IntelliJ autosaves
 /shelf/
 /workspace.xml
-# Editor-based HTTP Client requests
+
+# HTTP client requests
 /httpRequests/
-# Datasource local storage ignored files
+
+# Datasource configs
 /dataSources/
 /dataSources.local.xml
-/target
