@@ -9,7 +9,7 @@ cat > .gitignore <<'EOF'
 # macOS system files
 .DS_Store
 
-# IntelliJ autosaves
+# git rm -r --cached .idea autosaves
 /shelf/
 /workspace.xml
 
