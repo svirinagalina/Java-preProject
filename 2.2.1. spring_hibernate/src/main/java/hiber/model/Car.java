@@ -63,11 +63,11 @@ public class Car {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return series == car.series && Objects.equals(model, car.model);
+        return series == car.series && Objects.equals(id, car.id) && Objects.equals(model, car.model);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(model, series);
+        return Objects.hash(id, model, series);
     }
 }
