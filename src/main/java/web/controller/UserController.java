@@ -21,14 +21,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    // простой тест: текст прямо в браузер
-    @GetMapping("/test")
-    public String test(Model model) {
-        model.addAttribute("msg", "UserController is working");
-        return "test";   // test.html
-    }
-
-    // опционально: главная страница
     @GetMapping("/")
     public String index() {
         return "redirect:/users";
@@ -38,7 +30,7 @@ public class UserController {
     public String listUsers(Model model) {
         List<User> users = userService.listUsers();
         model.addAttribute("users", users);
-        return "users";          // users.html
+        return "users";
     }
 
     @GetMapping("/users/add")
@@ -47,34 +39,23 @@ public class UserController {
     }
 
     @PostMapping("/users/add")
-    public String addUser(@RequestParam String name,
-                          @RequestParam String surname) {
+    public String addUser(@RequestParam String name, @RequestParam String surname) {
 
-        User user = new User();
-        user.setName(name);
-        user.setSurname(surname);
-
-        userService.add(user);
+        userService.add(name, surname);
         return "redirect:/users";
     }
 
     @GetMapping("/users/edit")
-    public String showEditForm(@RequestParam int id,
-                               Model model) {
+    public String showEditForm(@RequestParam int id, Model model) {
         User user = userService.getById(id);
         model.addAttribute("user", user);
         return "user-edit";
     }
 
     @PostMapping("/users/edit")
-    public String editUser(@RequestParam int id,
-                           @RequestParam String name,
-                           @RequestParam String surname) {
+    public String editUser(@RequestParam int id, @RequestParam String name, @RequestParam String surname) {
 
-        User user = userService.getById(id);
-        user.setName(name);
-        user.setSurname(surname);
-        userService.update(user);
+        userService.update(id, name, surname);
         return "redirect:/users";
     }
 

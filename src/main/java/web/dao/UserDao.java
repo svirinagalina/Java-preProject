@@ -1,41 +1,17 @@
 package web.dao;
 
-import org.springframework.stereotype.Repository;
 import web.model.User;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
-public class UserDao {
+public interface UserDao {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    List<User> listUsers();
 
-    public void add(User user) {
-        entityManager.persist(user);
-    }
+    void add(User user);
 
-    public User getById(int id) {
-        return entityManager.find(User.class, id);
-    }
+    User getById(int id);
 
-    public List<User> listUsers() {
-        TypedQuery<User> query =
-                entityManager.createQuery("SELECT u FROM User u", User.class);
-        return query.getResultList();
-    }
+    void update(User user);
 
-    public void update(User user) {
-        entityManager.merge(user);
-    }
-
-    public void delete(int id) {
-        User user = entityManager.find(User.class, id);
-        if (user != null) {
-            entityManager.remove(user);
-        }
-    }
+    void delete(int id);
 }

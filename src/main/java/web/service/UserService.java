@@ -5,12 +5,12 @@ import java.util.List;
 
 public interface UserService {
 
-    void add(User user);
+    void add(String name, String surname);
 
     User getById(int id);
     List<User> listUsers();
 
-    void update(User user);
+    void update(int id, String name, String surname);
 
     void delete(int id);
 }
